@@ -20,7 +20,7 @@ public abstract class Account implements IAccount {
 
     @Override
     public void addEntry(IEntry entry) {
-
+        entries.add(entry);
     }
 
     @Override
@@ -31,5 +31,10 @@ public abstract class Account implements IAccount {
     @Override
     public List<IEntry> getEntries() {
         return entries;
+    }
+
+    @Override
+    public ICustomer getCustomer() {
+        return customer;
     }
 }

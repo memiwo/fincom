@@ -1,16 +1,16 @@
 package edu.mum.fincom.framework;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author Issa Fikadu
  */
 public class Entry implements IEntry {
     private double amount;
-    private Date date;
+    private LocalDate date;
     private String description;
 
-    public Entry(double amount, Date date, String description) {
+    public Entry(double amount, LocalDate date, String description) {
         this.amount = amount;
         this.date = date;
         this.description = description;
@@ -22,7 +22,7 @@ public class Entry implements IEntry {
     }
 
     @Override
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

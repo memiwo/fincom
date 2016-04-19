@@ -1,5 +1,6 @@
 package edu.mum.fincom.framework;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -7,6 +8,6 @@ import java.util.Date;
  */
 public interface IEntry {
     double getAmount();
-    Date getDate();
+    LocalDate getDate();
     String getDescription();
 }
