@@ -1,0 +1,3 @@
+Time Log
+Raw design of the UML for the framework---> 3 hrs
+More refined version of the Framework UML---> 4hrs
