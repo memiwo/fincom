@@ -5,7 +5,7 @@ import edu.mum.fincom.framework.party.ICustomer;
 /**
  * @author Issa Fikadu
  */
-public interface CustomerService {
+interface CustomerService {
     void createCustomer(ICustomer customer);
     void removeCustomer(ICustomer customer);
 }

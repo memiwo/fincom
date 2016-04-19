@@ -5,7 +5,7 @@ import edu.mum.fincom.framework.party.ICustomer;
 /**
  * @author Issa Fikadu
  */
-public class CustomerServiceFacade implements CustomerService {
+class CustomerServiceFacade implements CustomerService {
     @Override
     public void createCustomer(ICustomer customer) {
 
