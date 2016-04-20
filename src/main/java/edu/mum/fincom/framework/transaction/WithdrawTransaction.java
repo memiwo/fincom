@@ -23,7 +23,7 @@ public class WithdrawTransaction extends Transaction {
 
     @Override
     public void process(IAccount account, double amount) {
-        account.addEntry(new Entry(amount, LocalDate.now(), "withdraw"));
+        account.addEntry(new Entry(amount*-1, LocalDate.now(), "withdraw"));
     }
 
     @Override
