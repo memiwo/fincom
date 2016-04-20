@@ -4,9 +4,6 @@ import edu.mum.fincom.framework.factory.AccountFactory;
 import edu.mum.fincom.framework.factory.CustomerFactory;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.factory.TransactionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
