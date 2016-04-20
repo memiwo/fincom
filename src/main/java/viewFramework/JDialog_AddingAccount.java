@@ -199,7 +199,6 @@ public abstract class JDialog_AddingAccount extends javax.swing.JDialog
 
 	   parentframe.newaccount=true;
 	   dispose();
-
 	}
 
 	public abstract void additionalOK_actionPerformed();
