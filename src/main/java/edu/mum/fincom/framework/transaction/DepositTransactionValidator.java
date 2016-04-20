@@ -22,9 +22,9 @@ public class DepositTransactionValidator implements TransactionValidator {
 
     @Override
     public void postTransaction(IAccount account, double amount) {
-        if (account instanceof IOrganization){
+        if (account.getCustomer() instanceof IOrganization){
             account.getCustomer().sendEmail("A deposit of "+amount+" is made on your account");
-        }else if((account instanceof IPerson) && amount > thresholdAmount ){
+        }else if((account.getCustomer() instanceof IPerson) && amount > thresholdAmount ){
             account.getCustomer().sendEmail("A deposit of "+amount+" is made on your account");
         }
     }
