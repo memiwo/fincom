@@ -23,7 +23,6 @@ public abstract class Transaction implements ITransaction {
     final public void execute() {
         if (getValidator().validate(account, getAmount())){
             process(account, amount);
-
             getValidator().postTransaction(account, amount);
         }
 
