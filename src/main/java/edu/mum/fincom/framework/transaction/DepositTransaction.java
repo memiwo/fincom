@@ -2,6 +2,7 @@ package edu.mum.fincom.framework.transaction;
 
 import edu.mum.fincom.framework.Entry;
 import edu.mum.fincom.framework.IAccount;
+import edu.mum.fincom.framework.party.IOrganization;
 
 import java.time.LocalDate;
 
@@ -25,11 +26,10 @@ public class DepositTransaction extends Transaction {
     public void process(IAccount account, double amount) {
         account.addEntry(new Entry(amount, LocalDate.now(), "deposit"));
 
-
     }
 
     @Override
     public TransactionValidator getValidator() {
-        return null;
+        return transactionValidator;
     }
 }

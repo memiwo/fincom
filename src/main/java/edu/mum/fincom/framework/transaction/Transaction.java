@@ -1,7 +1,6 @@
 package edu.mum.fincom.framework.transaction;
 
 import edu.mum.fincom.framework.IAccount;
-import edu.mum.fincom.framework.party.Person;
 
 /**
  * @author Issa Fikadu
@@ -18,15 +17,14 @@ public abstract class Transaction implements ITransaction {
 
     /**
      * A template method pattern that defines a steps for execution of transaction to first validate the transaction
+     * and process postTransaction
      */
     @Override
     final public void execute() {
-        if (getValidator().validate(account, amount)){
+        if (getValidator().validate(account, getAmount())){
             process(account, amount);
 
-           /* if (account instanceof Person && amount < 500){
-
-            }*/
+            getValidator().postTransaction(account, amount);
         }
 
     }

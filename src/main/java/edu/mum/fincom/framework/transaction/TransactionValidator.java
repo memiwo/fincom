@@ -7,4 +7,5 @@ import edu.mum.fincom.framework.IAccount;
  */
 public interface TransactionValidator {
     boolean validate(IAccount account, double amount);
+    void postTransaction(IAccount account, double amount);
 }

@@ -12,4 +12,9 @@ public class SavingAccount extends Account {
     public SavingAccount(ICustomer customer) {
         super(customer);
     }
+
+    @Override
+    public double getInterestRate() {
+        return 10;
+    }
 }

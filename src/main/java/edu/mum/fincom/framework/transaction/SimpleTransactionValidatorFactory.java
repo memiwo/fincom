@@ -5,7 +5,7 @@ package edu.mum.fincom.framework.transaction;
  */
 public class SimpleTransactionValidatorFactory {
     static public TransactionValidator getDepositTransactionValidator(){
-        return new DepositTransactionValidator();
+        return new DepositTransactionValidator(500);
     }
 
     static public TransactionValidator getWithdrawTransactionValidator(){

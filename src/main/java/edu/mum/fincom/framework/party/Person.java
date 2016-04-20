@@ -14,6 +14,12 @@ public class Person extends Customer implements IPerson {
         this.birthDate = birthDate;
     }
 
+    public Person(String name){
+        this(name, null, null);
+    }
+
+    
+
     @Override
     public Date getBirthDate() {
         return null;

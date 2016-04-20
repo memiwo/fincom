@@ -19,14 +19,19 @@ public abstract class Account implements IAccount {
     }
 
     @Override
-    public void addEntry(IEntry entry) {
+    public final void addEntry(IEntry entry) {
+
         entries.add(entry);
     }
 
     @Override
-    public double getBalance() {
+    public final double getBalance() {
+        for (IEntry e: entries){
+            balance+=e.getAmount();
+        }
         return balance;
     }
+
 
     @Override
     public List<IEntry> getEntries() {

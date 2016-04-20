@@ -8,6 +8,14 @@ import edu.mum.fincom.framework.IAccount;
 public class WithdrawTransactionValidator implements TransactionValidator {
     @Override
     public boolean validate(IAccount account, double amount) {
-        return false;
+        if (account.getBalance() < amount){
+            throw new InsufficientBalanceException("Insufficient Balance");
+        }
+        return true;
+    }
+
+    @Override
+    public void postTransaction(IAccount account, double amount) {
+
     }
 }

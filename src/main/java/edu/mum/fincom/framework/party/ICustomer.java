@@ -13,4 +13,5 @@ public interface ICustomer {
     void sendEmail(String message);
     Address getAddress();
     List<IAccount> getAccounts();
+    String getName();
 }
