@@ -94,12 +94,5 @@ public class BankApp extends FinComApp implements AssociationClass
 
     }
 
-    public static void main(String[] args) {
-        ApplicationContext context = new AnnotationConfigApplicationContext(BankAppConfig.class);
-        BankApp app = (BankApp) context.getBean("bankApp");
-        BankFactory factory = (BankFactory) context.getBean("bankFactory");
-
-
-    }
 
 }
