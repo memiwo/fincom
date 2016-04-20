@@ -5,6 +5,8 @@ import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.party.ICustomer;
 import edu.mum.fincom.framework.service.SimpleServiceFactory;
 import edu.mum.fincom.framework.transaction.ITransaction;
+import viewFramework.ApplicationFrame;
+import viewFramework.DefaultFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,21 @@ public class FinComApp implements ISubject {
 
     private FinComFactory finComFactory;
 
+    public ApplicationFrame appFrame;
+
+//    public static void main(String args[]){
+//        FinComApp app = new FinComApp();
+//        app.appFrame.startFrame();
+//    }
+
+    public ApplicationFrame getFrame()
+    {
+        return new DefaultFrame();
+    }
     public FinComApp(FinComFactory finComFactory){
         this.finComFactory = finComFactory;
         observers = new ArrayList<>();
+        this.appFrame = getFrame();
     }
 
     @Override
