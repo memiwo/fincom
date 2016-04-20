@@ -36,7 +36,10 @@ public class FinComApp implements ISubject {
 
     public final void createAccount(){
         IAccount account = finComFactory.createAccountFactory().createAccount();
+        System.out.println(account.getInterestRate());
+        System.out.println(account.getCustomer().getName());
         SimpleServiceFactory.getAccountService().createAccount(account);
+        notifyObservers();
 
     }
 
@@ -49,5 +52,9 @@ public class FinComApp implements ISubject {
         ITransaction transaction = finComFactory.createTransactionFactory().createTransaction();
         SimpleServiceFactory.getTransactionService().process(transaction);
 
+    }
+
+    public List<IAccount> getAccounts(){
+        return SimpleServiceFactory.getAccountService().getAccounts();
     }
 }

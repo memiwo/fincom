@@ -34,4 +34,9 @@ class AccountServiceFacade implements AccountService {
 
         accounts.stream().forEach(ac -> ac.addEntry(new Entry(ac.getBalance()*ac.getInterestRate(), LocalDate.now(),"Interest")));
     }
+
+    @Override
+    public List<IAccount> getAccounts() {
+        return accounts;
+    }
 }

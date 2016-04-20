@@ -6,6 +6,7 @@ import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.factory.TransactionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,14 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class BankFactory implements FinComFactory {
 
-    @Autowired
-    @Qualifier(value = "bankAccountFactory")
     private AccountFactory accountFactory;
     private CustomerFactory customerFactory;
     private TransactionFactory transactionFactory;
-
-    public BankFactory() {
-    }
 
     @Override
     public AccountFactory createAccountFactory() {
@@ -39,5 +35,15 @@ public class BankFactory implements FinComFactory {
         return transactionFactory;
     }
 
+    public void setAccountFactory(AccountFactory accountFactory) {
+        this.accountFactory = accountFactory;
+    }
 
+    public void setCustomerFactory(CustomerFactory customerFactory) {
+        this.customerFactory = customerFactory;
+    }
+
+    public void setTransactionFactory(TransactionFactory transactionFactory) {
+        this.transactionFactory = transactionFactory;
+    }
 }
