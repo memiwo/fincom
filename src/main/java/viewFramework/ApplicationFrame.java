@@ -340,7 +340,7 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	}
 
 	protected abstract void deposit(String accnr, long deposit);
-	protected abstract double withdraw(String accnr, long deposit);
+	protected abstract void withdraw(String accnr, long deposit);
 
 
 	abstract public int getAmountSelectionColumnNum();
@@ -371,11 +371,12 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 		    // compute new amount
             long withdraw = Long.parseLong(amountDeposit);
 
-			double newamount = withdraw(accnr, withdraw);
+			//double newamount =
+					withdraw(accnr, withdraw);
 
-		    if (newamount <0){
+		   /* if (newamount <0){
 		       JOptionPane.showMessageDialog(JButton_Withdraw, " Account "+accnr+" : balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
-		    }
+		    }*/
 		}
 
 	}

@@ -106,8 +106,8 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected double withdraw(String accnr, long w) {
-		return bankApp.withdraw(accnr, w);
+	protected void withdraw(String accnr, long w) {
+		 bankApp.withdraw(accnr, w);
 	}
 
 	@Override

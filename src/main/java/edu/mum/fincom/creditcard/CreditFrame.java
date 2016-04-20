@@ -103,9 +103,8 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected double withdraw(String accnr, long deposit) {
-		return 0;
-	}
+	protected void withdraw(String accnr, long deposit) {
+			}
 
 	@Override
 	public Vector<String> getVectorToAdd(IAccount a) {

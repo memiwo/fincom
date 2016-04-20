@@ -21,14 +21,15 @@ public abstract class Account implements IAccount {
     @Override
     public final void addEntry(IEntry entry) {
 
+        balance+=entry.getAmount();
         entries.add(entry);
     }
 
     @Override
     public final double getBalance() {
-        for (IEntry e: entries){
+        /*for (IEntry e: entries){
             balance+=e.getAmount();
-        }
+        }*/
         return balance;
     }
 

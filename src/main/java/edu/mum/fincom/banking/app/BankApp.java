@@ -102,7 +102,7 @@ public class BankApp extends FinComApp
     }
 
 
-    public double withdraw(String accnm, long val){
+    public void withdraw(String accnm, long val){
         IAccount account = null;
         double amount = Double.valueOf(val);
         AccountService ser = SimpleServiceFactory.getAccountService();
@@ -110,12 +110,12 @@ public class BankApp extends FinComApp
 
         System.out.println(account.getBalance());
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.WITHDRAWAL,account, amount);
-        transactionFactory.createTransaction().execute();
+        bankFactory.setTransactionFactory(transactionFactory);
 
-        System.out.println(account.getBalance());
+        createTransaction();
 
-      //  notifyObservers();
-        return account.getBalance();
+
+       // return account.getBalance();
     }
 
     public void createSavingAccount(){
