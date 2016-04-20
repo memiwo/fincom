@@ -49,9 +49,9 @@ public class FinComApp implements ISubject {
 
     public final void createAccount(){
         IAccount account = finComFactory.createAccountFactory().createAccount();
-        System.out.println(account.getInterestRate());
-        System.out.println(account.getCustomer().getName());
+
         SimpleServiceFactory.getAccountService().createAccount(account);
+
         notifyObservers();
 
     }
