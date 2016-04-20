@@ -96,6 +96,7 @@ public class BankApp extends FinComApp
         System.out.println(account.getBalance());
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
+
         createTransaction();
 
     }
