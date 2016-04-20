@@ -1,28 +1,23 @@
 package viewFramework;
 
-import java.awt.BorderLayout;
+import edu.mum.fincom.banking.app.DialogAddCA;
+import edu.mum.fincom.framework.FinComApp;
+import edu.mum.fincom.framework.IAccount;
+import edu.mum.fincom.framework.IObserver;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
-
-import edu.mum.fincom.banking.app.DialogAddCA;
-import edu.mum.fincom.framework.FinComApp;
-
 /**
  * A basic JFC based application.
  */
-public abstract class ApplicationFrame extends javax.swing.JFrame
+public abstract class ApplicationFrame extends javax.swing.JFrame implements IObserver
 {
 
-	public AssociationClass associationClass;
 	public FinComApp application;
 
 	private static final long serialVersionUID = 1L;
@@ -36,6 +31,7 @@ public abstract class ApplicationFrame extends javax.swing.JFrame
 	public String state;
 	public String accountType;
 	public String clientType;
+	public int numOfEmps;
 	public String email;
 
 	public String pc;
@@ -207,9 +203,8 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	 * Sets the Look and Feel to the System Look and Feel.
 	 * Creates a new JFrame1 and makes it visible.
 	 *****************************************************/
-	public void startFrame(AssociationClass associationClass)
+	public void startFrame()
 	{
-		this.associationClass = associationClass;
 		try {
 		    try {
 		        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -294,15 +289,14 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 		pac.show();
 
 		if (newaccount){
-			addRowToTable(getVectorToAdd());
-			createAccount();
+			createAccount(1);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
 
     }
 
-	protected abstract void createAccount();
+	protected abstract void createAccount(int selection);
 
 	protected  void JButton2_actionPerformed(java.awt.event.ActionEvent event)
 	{
@@ -312,22 +306,14 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 		pac.show();
 
 		if (newaccount){
-
-			Vector<String> dataVector = new Vector<>();
-			dataVector.add(clientName);
-			dataVector.add(street);
-			dataVector.add(city);
-			dataVector.add("balance");
-
-			addRowToTable(getVectorToAdd());
-
-            JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
+			createAccount(2);
+			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
 
 	}
 
-	abstract public Vector<String> getVectorToAdd();
+	abstract public Vector<String> getVectorToAdd(IAccount acc);
 
 	public abstract JDialog_AddingAccount getAddingAccount();
 
@@ -338,24 +324,23 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
         if (selection >=0){
             String accnr = (String)model.getValueAt(selection, 0);
 
-		    //Show the dialog for adding deposit amount for the current mane
             JDialog_ForEntries dep = new JDialog_ForEntries(this, getDDTitle(), accnr);
 		    dep.setBounds(430, 285, 275, 160);
 		    dep.show();
 
-		    // compute new amount
             long deposit = Long.parseLong(amountDeposit);
-            String samount = (String)model.getValueAt(selection, getAmountSelectionColumnNum());
-            long currentamount = Long.parseLong(samount);
 
-		    long newamount=currentamount+deposit;
-		    model.setValueAt(String.valueOf(newamount),selection, getAmountSelectionColumnNum());
+			deposit(accnr, deposit);
+
 		}
 
         else
   		  JOptionPane.showMessageDialog(JButton3, " Please select a customer "," Message",JOptionPane.PLAIN_MESSAGE);
 
 	}
+
+	protected abstract void deposit(String accnr, long deposit);
+	protected abstract double withdraw(String accnr, long deposit);
 
 
 	abstract public int getAmountSelectionColumnNum();
@@ -384,11 +369,10 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 		    dep.show();
 
 		    // compute new amount
-            long deposit = Long.parseLong(amountDeposit);
-            String samount = (String)model.getValueAt(selection,  getAmountSelectionColumnNum());
-            long currentamount = Long.parseLong(samount);
-		    long newamount=currentamount-deposit;
-		    model.setValueAt(String.valueOf(newamount),selection,  getAmountSelectionColumnNum());
+            long withdraw = Long.parseLong(amountDeposit);
+
+			double newamount = withdraw(accnr, withdraw);
+
 		    if (newamount <0){
 		       JOptionPane.showMessageDialog(JButton_Withdraw, " Account "+accnr+" : balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
 		    }
@@ -399,10 +383,17 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	void JButton3_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		  JOptionPane.showMessageDialog(JButton3, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-
+			addInterest();
 	}
+
+	protected abstract void addInterest();
 
 	public void addRowToTable(Vector<String> dataRow) {
 		model.addRow(dataRow);
+	}
+
+	public void refreshTable()
+	{
+			model.setRowCount(0);
 	}
 }

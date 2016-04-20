@@ -1,12 +1,11 @@
-package CreditApp;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JRadioButton;
+package edu.mum.fincom.creditcard;
 
 import viewFramework.ApplicationFrame;
 import viewFramework.JDialog_AddingAccount;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogAddCCA extends JDialog_AddingAccount
 {

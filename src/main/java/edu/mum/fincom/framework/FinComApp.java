@@ -44,7 +44,6 @@ public class FinComApp implements ISubject {
 
     @Override
     public void notifyObservers() {
-
         observers.forEach(IObserver::update);
     }
 
@@ -65,6 +64,7 @@ public class FinComApp implements ISubject {
     public final void createTransaction(){
         ITransaction transaction = finComFactory.createTransactionFactory().createTransaction();
         SimpleServiceFactory.getTransactionService().process(transaction);
+        notifyObservers();
 
     }
 

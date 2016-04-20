@@ -1,19 +1,26 @@
-package CreditApp;
+package edu.mum.fincom.creditcard;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
+import edu.mum.fincom.framework.IAccount;
 import viewFramework.ApplicationFrame;
 import viewFramework.JDialogGenBill;
 import viewFramework.JDialog_AddingAccount;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 public class CreditFrame extends ApplicationFrame{
 
 	private static final long serialVersionUID = 1L;
+
+	public CreditCardApp creditCardApp;
+
+	public CreditFrame(CreditCardApp ca){
+
+		this.creditCardApp = ca;
+		this.creditCardApp.attach(this);
+	}
 
 	public List<String> getTableColumnNames()
 	{
@@ -28,7 +35,7 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void createAccount() {
+	protected void createAccount(int selection) {
 
 	}
 
@@ -81,12 +88,27 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
+	protected void addInterest() {
+
+	}
+
+	@Override
 	public JDialog_AddingAccount getAddingAccount() {
 		return new DialogAddCCA(this);
 	}
 
 	@Override
-	public Vector<String> getVectorToAdd() {
+	protected void deposit(String accnr, long deposit) {
+
+	}
+
+	@Override
+	protected double withdraw(String accnr, long deposit) {
+		return 0;
+	}
+
+	@Override
+	public Vector<String> getVectorToAdd(IAccount a) {
 		Vector<String> vector = new Vector<>();
 		vector.add(clientName);
 		vector.add(ccnumber);
@@ -108,4 +130,8 @@ public class CreditFrame extends ApplicationFrame{
 		return 4;
 	}
 
+	@Override
+	public void update() {
+
+	}
 }

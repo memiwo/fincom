@@ -3,7 +3,6 @@ package edu.mum.fincom.banking.app;
 import edu.mum.fincom.banking.BankAppConfig;
 import edu.mum.fincom.banking.account.AccountType;
 import edu.mum.fincom.banking.factory.BankAccountFactory;
-import edu.mum.fincom.banking.BankAppConfig;
 import edu.mum.fincom.banking.factory.BankFactory;
 import edu.mum.fincom.banking.factory.BankTransactionFactory;
 import edu.mum.fincom.banking.factory.TransactionType;
@@ -12,34 +11,35 @@ import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.party.Address;
 import edu.mum.fincom.framework.party.ICustomer;
+import edu.mum.fincom.framework.party.Organization;
 import edu.mum.fincom.framework.party.Person;
+import edu.mum.fincom.framework.service.AccountService;
+import edu.mum.fincom.framework.service.SimpleServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 import viewFramework.ApplicationFrame;
-import viewFramework.AssociationClass;
 
 import java.util.Date;
-import java.util.Vector;
 
 /**
  * @author Issa Fikadu
  */
 @Component
-public class BankApp extends FinComApp implements AssociationClass
+public class BankApp extends FinComApp
 {
     static public void main(String args[])
     {
         ApplicationContext context = new AnnotationConfigApplicationContext(BankAppConfig.class);
         BankApp app = (BankApp) context.getBean("bankApp");
-        app.appFrame.startFrame(app);
-        app.appFrame.setApplication(app);
+        app.appFrame.startFrame();
     }
+
 
     @Override
     public ApplicationFrame getFrame() {
-        return new BankFrame();
+        return new BankFrame(this);
     }
 
     @Autowired
@@ -52,36 +52,69 @@ public class BankApp extends FinComApp implements AssociationClass
     }
 
     public void createPersonalCheckingAccount(){
-        ICustomer customer = new Person("Issa");
+        ICustomer customer = new Person(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
+                Integer.parseInt(appFrame.zip),appFrame.email),new Date());
 
         BankAccountFactory bankAccountFactory = new BankAccountFactory(AccountType.CHECKING,customer);
-        //checkingAccountFactory.setCustomer(customer);
         bankFactory.setAccountFactory(bankAccountFactory);
-
-       // System.out.println("creating checking account");
-        IAccount account = bankAccountFactory.createAccount();
-       // System.out.println(account.getInterestRate());
         createAccount();
     }
 
     public void createPersonalSavingAccount(){
+        ICustomer customer = new Person(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
+                Integer.parseInt(appFrame.zip),appFrame.email),new Date());
 
+        BankAccountFactory bankAccountFactory = new BankAccountFactory(AccountType.SAVING,customer);
+        bankFactory.setAccountFactory(bankAccountFactory);
+        createAccount();
     }
 
     public void createOrganizationSavingAccount(){
+        ICustomer customer = new Organization(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
+                Integer.parseInt(appFrame.zip),appFrame.email),appFrame.numOfEmps);
 
+        BankAccountFactory bankAccountFactory = new BankAccountFactory(AccountType.SAVING,customer);
+        bankFactory.setAccountFactory(bankAccountFactory);
+        createAccount();
     }
 
     public void createOrganizationCheckingAccount(){
+        ICustomer customer = new Organization(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
+                Integer.parseInt(appFrame.zip),appFrame.email),appFrame.numOfEmps);
+
+        BankAccountFactory bankAccountFactory = new BankAccountFactory(AccountType.CHECKING,customer);
+        bankFactory.setAccountFactory(bankAccountFactory);
+        createAccount();
+    }
+
+    public void deposit(String accnm, long val){
+        IAccount account = null;
+        double amount = Double.valueOf(val);
+        AccountService ser = SimpleServiceFactory.getAccountService();
+        account = ser.getAccountByName(accnm);
+
+        System.out.println(account.getBalance());
+        BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
+        bankFactory.setTransactionFactory(transactionFactory);
+        createTransaction();
 
     }
 
-    public void deposit(){
-        IAccount account = null;
-        double amount = 0;
-        BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
 
-        createTransaction();
+    public double withdraw(String accnm, long val){
+        IAccount account = null;
+        double amount = Double.valueOf(val);
+        AccountService ser = SimpleServiceFactory.getAccountService();
+        account = ser.getAccountByName(accnm);
+
+        System.out.println(account.getBalance());
+        BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.WITHDRAWAL,account, amount);
+        transactionFactory.createTransaction().execute();
+
+        System.out.println(account.getBalance());
+
+      //  notifyObservers();
+        return account.getBalance();
     }
 
     public void createSavingAccount(){
@@ -91,7 +124,6 @@ public class BankApp extends FinComApp implements AssociationClass
        // IAccount account = checkingAccountFactory.createAccount();
         // System.out.println(account.getInterestRate());
         createAccount();
-
     }
 
 

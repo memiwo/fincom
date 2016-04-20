@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import edu.mum.fincom.framework.IAccount;
 import viewFramework.ApplicationFrame;
 import viewFramework.JDialog_AddingAccount;
 
@@ -14,7 +15,13 @@ public class BankFrame extends ApplicationFrame{
 
 	private static final long serialVersionUID = 1L;
 
+	public BankApp bankApp;
 
+	public BankFrame(BankApp bankApp){
+
+		this.bankApp = bankApp;
+		this.bankApp.attach(this);
+	}
 	@Override
 	public String getButton1Text() {
 		return "Add personal account";
@@ -66,8 +73,12 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void createAccount() {
-		associationClass.createPersonalCheckingAccount();
+	protected void createAccount(int selection) {
+		if(selection==1)
+		bankApp.createPersonalCheckingAccount();
+		else
+			bankApp.createOrganizationCheckingAccount();
+
 	}
 
 
@@ -80,21 +91,36 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
+	protected void addInterest() {
+//		bankApp.addInterest();
+	}
+
+	@Override
 	public JDialog_AddingAccount getAddingAccount() {
 		return new DialogAddPA(this);
 	}
 
 	@Override
-	public Vector<String> getVectorToAdd() {
+	protected void deposit(String accnr, long deposit) {
+		bankApp.deposit(accnr, deposit);
+	}
+
+	@Override
+	protected double withdraw(String accnr, long w) {
+		return bankApp.withdraw(accnr, w);
+	}
+
+	@Override
+	public Vector<String> getVectorToAdd(IAccount account) {
 		Vector<String> vector = new Vector<>();
-		vector.add(clientName);
-		vector.add(street);
-		vector.add(city);
-		vector.add(state);
-		vector.add(zip);
+		vector.add(account.getCustomer().getName());
+		vector.add(account.getCustomer().getAddress().getStreet());
+		vector.add(account.getCustomer().getAddress().getCity());
+		vector.add(account.getCustomer().getAddress().getState());
+		vector.add(String.valueOf(account.getCustomer().getAddress().getZip()));
 		vector.add(pc);
 		vector.add(chs);
-		vector.add(balance);
+		vector.add(String.valueOf(account.getBalance()));
 
 		return vector;
 	}
@@ -104,4 +130,12 @@ public class BankFrame extends ApplicationFrame{
 		return 7;
 	}
 
+	@Override
+	public void update() {
+		refreshTable();
+		System.out.println("Notifying JTable: Refresh");
+		System.out.println(bankApp.getAccounts().size());
+		for(IAccount i : bankApp.getAccounts())
+		addRowToTable(getVectorToAdd(i));
+	}
 }
