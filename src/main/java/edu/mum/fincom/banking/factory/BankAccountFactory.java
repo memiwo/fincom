@@ -1,9 +1,11 @@
 package edu.mum.fincom.banking.factory;
 
 import edu.mum.fincom.banking.account.AccountType;
+import edu.mum.fincom.banking.account.CheckingAccount;
+import edu.mum.fincom.banking.account.SavingAccount;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.AccountFactory;
-import org.springframework.stereotype.Component;
+import edu.mum.fincom.framework.party.ICustomer;
 
 /**
  * @author Issa Fikadu
@@ -11,9 +13,17 @@ import org.springframework.stereotype.Component;
 
 public class BankAccountFactory implements AccountFactory{
 
-    IAccount account;
+   private IAccount account;
 
-    public BankAccountFactory(AccountType type){
+    public BankAccountFactory(AccountType type, ICustomer customer){
+        switch (type){
+            case CHECKING:
+                account = new CheckingAccount(customer);
+                break;
+            case SAVING:
+                account = new SavingAccount(customer);
+                break;
+        }
 
     }
 
