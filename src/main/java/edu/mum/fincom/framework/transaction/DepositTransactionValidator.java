@@ -16,6 +16,7 @@ public class DepositTransactionValidator implements TransactionValidator {
     @Override
     public boolean validate(IAccount account, double amount) {
 
+        if (amount <= 0) return false;
         return true;
     }
 

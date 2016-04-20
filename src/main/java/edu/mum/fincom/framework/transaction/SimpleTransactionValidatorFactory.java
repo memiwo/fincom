@@ -9,7 +9,7 @@ public class SimpleTransactionValidatorFactory {
     }
 
     static public TransactionValidator getWithdrawTransactionValidator(){
-        return new WithdrawTransactionValidator();
+        return new WithdrawTransactionValidator(500);
     }
 
 }

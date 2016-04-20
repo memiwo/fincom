@@ -1,14 +1,19 @@
 package edu.mum.fincom.banking.app;
 
+import edu.mum.fincom.banking.BankAppConfig;
+import edu.mum.fincom.banking.account.AccountType;
+import edu.mum.fincom.banking.factory.BankAccountFactory;
 import edu.mum.fincom.banking.factory.BankFactory;
-import edu.mum.fincom.banking.factory.CheckingAccountFactory;
-import edu.mum.fincom.banking.factory.SavingAccountFactory;
+import edu.mum.fincom.banking.factory.BankTransactionFactory;
+import edu.mum.fincom.banking.factory.TransactionType;
 import edu.mum.fincom.framework.FinComApp;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.party.ICustomer;
 import edu.mum.fincom.framework.party.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,11 +25,6 @@ public class BankApp extends FinComApp {
     @Autowired
     BankFactory bankFactory;
 
-    @Autowired
-    CheckingAccountFactory checkingAccountFactory;
-
-    @Autowired
-    SavingAccountFactory savingAccountFactory;
 
     @Autowired
     public BankApp(FinComFactory bankFactory) {
@@ -33,11 +33,13 @@ public class BankApp extends FinComApp {
 
     public void createPersonalCheckingAccount(){
         ICustomer customer = new Person("Issa");
-        checkingAccountFactory.setCustomer(customer);
-        bankFactory.setAccountFactory(checkingAccountFactory);
+
+        BankAccountFactory bankAccountFactory = new BankAccountFactory(AccountType.CHECKING,customer);
+        //checkingAccountFactory.setCustomer(customer);
+        bankFactory.setAccountFactory(bankAccountFactory);
 
        // System.out.println("creating checking account");
-        IAccount account = checkingAccountFactory.createAccount();
+        IAccount account = bankAccountFactory.createAccount();
        // System.out.println(account.getInterestRate());
         createAccount();
     }
@@ -54,8 +56,16 @@ public class BankApp extends FinComApp {
 
     }
 
+    public void deposit(){
+        IAccount account = null;
+        double amount = 0;
+        BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
+
+        createTransaction();
+    }
+
     public void createSavingAccount(){
-        bankFactory.setAccountFactory(savingAccountFactory);
+     //   bankFactory.setAccountFactory(savingAccountFactory);
 
         // System.out.println("creating checking account");
        // IAccount account = checkingAccountFactory.createAccount();
@@ -64,13 +74,12 @@ public class BankApp extends FinComApp {
 
     }
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(BankAppConfig.class);
-      *//*  BankApp app = (BankApp) context.getBean("bankApp");
+        BankApp app = (BankApp) context.getBean("bankApp");
         BankFactory factory = (BankFactory) context.getBean("bankFactory");
 
-        System.out.println(app.checkingAccount.getBalance());*//*
 
-    }*/
+    }
 
 }
