@@ -1,5 +1,6 @@
 package edu.mum.fincom.framework;
 
+import edu.mum.fincom.framework.factory.DefaultFinComFactory;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.party.ICustomer;
 import edu.mum.fincom.framework.service.AccountService;
@@ -40,7 +41,7 @@ public class FinCom implements ISubject {
 
 
     public static void main(String args[]){
-        FinCom app = new FinCom(null);
+        FinCom app = new FinCom(new DefaultFinComFactory());
         app.appFrame.startFrame();
     }
 
