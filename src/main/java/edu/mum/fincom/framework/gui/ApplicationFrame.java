@@ -1,7 +1,5 @@
-package viewFramework;
+package edu.mum.fincom.framework.gui;
 
-import edu.mum.fincom.banking.app.DialogAddCA;
-import edu.mum.fincom.framework.FinCom;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.IObserver;
 
@@ -18,7 +16,17 @@ import java.util.Vector;
 public abstract class ApplicationFrame extends javax.swing.JFrame implements IObserver
 {
 
-	public FinCom application;
+	public static final String PERSONAL_ACCOUNT_TYPE = "P";
+	public static final String ORGANIZATION_ACCOUNT_TYPE = "O";
+
+	//Set Application Look and feel. This needs to be done before the constructor runs initializing the application frame
+	static {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Exception e) {
+		}
+	}
 
 	private static final long serialVersionUID = 1L;
 	/****
@@ -42,7 +50,7 @@ public abstract class ApplicationFrame extends javax.swing.JFrame implements IOb
 	public String ccnumber;
 	public String expDate;
 
-	public String amountDeposit;
+	public String amount;
     public boolean newaccount;
     public DefaultTableModel model;
     private JTable JTable1;
@@ -57,12 +65,6 @@ public abstract class ApplicationFrame extends javax.swing.JFrame implements IOb
 	JButton JButton3= new JButton();
 	JButton JButton_Exit = new JButton();
 ///
-
-	public void setApplication(FinCom app)
-	{
-		this.application = app;
-	}
-
 	public ApplicationFrame()
 	{
 		myframe = this;
@@ -134,25 +136,15 @@ public abstract class ApplicationFrame extends javax.swing.JFrame implements IOb
 
 	}
 
-    public String getButton1Text(){
-	return "btn 1";
-    }
+    abstract public String getButton1Text();
 
-    public String getButton2Text(){
-	return "btn 2";
-    }
+	abstract public String getButton2Text();
 
-    public String getButton3Text(){
-	return "btn 3";
-    }
+    abstract public String getButton3Text();
 
-    public String getButton4Text(){
-	return "btn 4";
-    }
+    abstract public String getButton4Text();
 
-    public  String getButton5Text(){
-	return "btn 5";
-    }
+    abstract public  String getButton5Text();
     public String getButton6Text(){
 	return "Exit";
     }
@@ -206,11 +198,7 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	public void startFrame()
 	{
 		try {
-		    try {
-		        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		    }
-		    catch (Exception e) {
-		    }
+
 			(this).setVisible(true);
 		}
 		catch (Throwable t) {
@@ -282,31 +270,31 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	}
 
 
-	protected void JButton1_actionPerformed(java.awt.event.ActionEvent event)
+	protected void JButton1_actionPerformed(java.awt.event.ActionEvent event)//create Personal Account AP
 	{
-		JDialog_AddingAccount pac = getAddingAccount();
+		AbstractDialogAddAccount pac = getAddingAccount();
 		pac.setBounds(450, 220, 300, 350);
 		pac.show();
 
 		if (newaccount){
-			createAccount(1);
+			createAccount(chs, PERSONAL_ACCOUNT_TYPE); // chs => is the selected radio button
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
 
     }
 
-	protected abstract void createAccount(int selection);
+	protected abstract void createAccount(String accountType, String customerType);
 
-	protected  void JButton2_actionPerformed(java.awt.event.ActionEvent event)
+	protected  void JButton2_actionPerformed(java.awt.event.ActionEvent event)// create company account AP
 	{
 
-		JDialog_AddingAccount pac = new DialogAddCA(myframe);
+		AbstractDialogAddAccount pac = getAddingAccount();
 		pac.setBounds(450, 220, 300, 350);
 		pac.show();
 
 		if (newaccount){
-			createAccount(2);
+			createAccount(chs, ORGANIZATION_ACCOUNT_TYPE);// chs => is the selected radio button
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
@@ -315,7 +303,7 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 
 	abstract public Vector<String> getVectorToAdd(IAccount acc);
 
-	public abstract JDialog_AddingAccount getAddingAccount();
+	public abstract AbstractDialogAddAccount getAddingAccount();
 
 	public void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event)
 	{
@@ -324,23 +312,26 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
         if (selection >=0){
             String accnr = (String)model.getValueAt(selection, 0);
 
-            JDialog_ForEntries dep = new JDialog_ForEntries(this, getDDTitle(), accnr);
+            DialogAddEntry dep = new DialogAddEntry(this, getDDTitle(), accnr);
 		    dep.setBounds(430, 285, 275, 160);
 		    dep.show();
 
-            long deposit = Long.parseLong(amountDeposit);
+			if (!amount.isEmpty()){
+				long deposit = Long.parseLong(amount);
+				deposit(accnr, deposit);
+			}
 
-			deposit(accnr, deposit);
 
 		}
+        else{
 
-        else
-  		  JOptionPane.showMessageDialog(JButton3, " Please select a customer "," Message",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(JButton3, " Please select a customer "," Message",JOptionPane.PLAIN_MESSAGE);
+		}
 
 	}
 
 	protected abstract void deposit(String accnr, long deposit);
-	protected abstract void withdraw(String accnr, long deposit);
+	protected abstract void withdraw(String accnr, long amount);
 
 
 	abstract public int getAmountSelectionColumnNum();
@@ -364,15 +355,19 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
             String accnr = (String)model.getValueAt(selection, 0);
 
 		    //Show the dialog for adding withdraw amount for the current mane
-            JDialog_ForEntries dep = new JDialog_ForEntries(this, getWDTitle(),accnr);
+            DialogAddEntry dep = new DialogAddEntry(this, getWDTitle(),accnr);
 		    dep.setBounds(430, 285, 275, 160);
 		    dep.show();
 
 		    // compute new amount
-            long withdraw = Long.parseLong(amountDeposit);
+			if (!amount.isEmpty()){
 
-			//double newamount =
-					withdraw(accnr, withdraw);
+				long withdraw = Long.parseLong(amount);
+				withdraw(accnr, withdraw);
+			}
+		}else {
+
+			JOptionPane.showMessageDialog(JButton3, " Please select a customer "," Message",JOptionPane.PLAIN_MESSAGE);
 
 		   /* if (newamount <0){
 		       JOptionPane.showMessageDialog(JButton_Withdraw, " Account "+accnr+" : balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
@@ -384,10 +379,10 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	void JButton3_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		  JOptionPane.showMessageDialog(JButton3, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
-			addInterest();
+		processInterest();
 	}
 
-	protected abstract void addInterest();
+	protected abstract void processInterest();
 
 	public void addRowToTable(Vector<String> dataRow) {
 		model.addRow(dataRow);
@@ -397,4 +392,8 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	{
 			model.setRowCount(0);
 	}
+
+
+
+
 }

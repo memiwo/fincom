@@ -15,4 +15,9 @@ public class CheckingAccount extends Account {
     public double getInterestRate() {
         return 0.6;
     }
+
+    @Override
+    public String getDescription() {
+        return "Checking";
+    }
 }

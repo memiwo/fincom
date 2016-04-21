@@ -1,9 +1,11 @@
 package edu.mum.fincom.creditcard;
 
+import edu.mum.fincom.creditcard.app.CreditCard;
 import edu.mum.fincom.framework.IAccount;
-import viewFramework.ApplicationFrame;
-import viewFramework.JDialogGenBill;
-import viewFramework.JDialog_AddingAccount;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
+import edu.mum.fincom.framework.gui.JDialogGenBill;
+import edu.mum.fincom.framework.gui.AbstractDialogAddAccount;
+import static edu.mum.fincom.creditcard.Constants.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -12,14 +14,16 @@ import java.util.Vector;
 
 public class CreditFrame extends ApplicationFrame{
 
+
+
 	private static final long serialVersionUID = 1L;
 
-	public CreditCard creditCardApp;
+	public CreditCard app;
 
 	public CreditFrame(CreditCard ca){
 
-		this.creditCardApp = ca;
-		this.creditCardApp.attach(this);
+		this.app = ca;
+		this.app.attach(this);
 	}
 
 	public List<String> getTableColumnNames()
@@ -35,7 +39,27 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void createAccount(int selection) {
+	protected void createAccount(String accountType, String customerType) {
+
+		if (customerType.equalsIgnoreCase(PERSONAL_ACCOUNT_TYPE)){//Personal Account
+			if (accountType.equals(GOLD_ACCOUNT_TYPE)){
+				app.createPersonalGoldAccount();
+			}else if (accountType.equals(BRONZE_ACCOUNT_TYPE)){
+				app.createPersonalBronzeAccount();
+			}else if (accountType.equals(SILVER_ACCOUNT_TYPE)){
+				app.createPersonalSilverAccount();
+			}
+		}else if (customerType.equalsIgnoreCase(ORGANIZATION_ACCOUNT_TYPE)){//Organizational Account{
+
+			if (accountType.equals(GOLD_ACCOUNT_TYPE)){
+				app.createOrganizationGoldAccount();
+			}else if (accountType.equals(BRONZE_ACCOUNT_TYPE)){
+				app.createOrganizationBronzeAccount();
+			}else if (accountType.equals(SILVER_ACCOUNT_TYPE)){
+				app.createOrganizationSilverAccount();
+			}
+
+		}
 
 	}
 
@@ -46,25 +70,21 @@ public class CreditFrame extends ApplicationFrame{
 
 	@Override
 	public String getButton2Text() {
-		// TODO Auto-generated method stub
 		return "Generate Monthly Bills";
 	}
 
 	@Override
 	public String getButton3Text() {
-		// TODO Auto-generated method stub
 		return "";
 	}
 
 	@Override
 	public String getButton4Text() {
-		// TODO Auto-generated method stub
 		return "Deposit";
 	}
 
 	@Override
 	public String getButton5Text() {
-		// TODO Auto-generated method stub
 		return "Charge";
 	}
 
@@ -88,12 +108,12 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void addInterest() {
+	protected void processInterest() {
 
 	}
 
 	@Override
-	public JDialog_AddingAccount getAddingAccount() {
+	public AbstractDialogAddAccount getAddingAccount() {
 		return new DialogAddCCA(this);
 	}
 

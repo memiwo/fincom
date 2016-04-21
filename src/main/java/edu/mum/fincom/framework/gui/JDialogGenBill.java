@@ -1,4 +1,4 @@
-package viewFramework;
+package edu.mum.fincom.framework.gui;
 /*
 		A basic implementation of the JDialog class.
 */

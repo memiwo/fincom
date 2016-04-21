@@ -1,4 +1,5 @@
-package viewFramework;
+package edu.mum.fincom.framework.gui;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,15 +9,16 @@ import javax.swing.JTextField;
 
 
 
-public abstract class JDialog_AddingAccount extends javax.swing.JDialog
+public abstract class AbstractDialogAddAccount extends javax.swing.JDialog
 {
 
 	private static final long serialVersionUID = 1L;
 	public ApplicationFrame parentframe;
+	List<Component> addedComponents = new ArrayList<>();
 
 	public abstract String getDialogTitle();
 
-	public JDialog_AddingAccount(ApplicationFrame parent)
+	public AbstractDialogAddAccount(ApplicationFrame parent)
 	{
 		super(parent);
 		parentframe=parent;
@@ -141,7 +143,6 @@ public abstract class JDialog_AddingAccount extends javax.swing.JDialog
 
 	}
 
-
 	public abstract List<JRadioButton> getRadioButtons();
 
 	//{{DECLARE_CONTROLS
@@ -186,14 +187,12 @@ public abstract class JDialog_AddingAccount extends javax.swing.JDialog
 
 	   parentframe.balance = "0";
 
-       additionalOK_actionPerformed();
 
        for(JRadioButton radioButton : getRadioButtons())
        {
     	     if (radioButton.isSelected())
     	     {
-    	           parentframe.accountType= String.valueOf(radioButton.getText().charAt(0));
-    	           parentframe.accountType = "S";
+				 parentframe.chs= String.valueOf(radioButton.getText());
 			 }
        }
 
@@ -201,10 +200,7 @@ public abstract class JDialog_AddingAccount extends javax.swing.JDialog
 	   dispose();
 	}
 
-	public abstract void additionalOK_actionPerformed();
-
-	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
-	{
+	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event){
 		dispose();
 
 	}

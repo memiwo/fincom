@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ComponentScan(basePackages = "edu.mum.fincom.creditcard..*")
+@ComponentScan(basePackages = "edu.mum.fincom.creditcard.*")
 public class CreditCardAppConfig {
 
 }

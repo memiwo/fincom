@@ -8,8 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import edu.mum.fincom.framework.IAccount;
-import viewFramework.ApplicationFrame;
-import viewFramework.JDialog_AddingAccount;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
+import edu.mum.fincom.framework.gui.AbstractDialogAddAccount;
+import static edu.mum.fincom.banking.Constants.*;
 
 public class BankFrame extends ApplicationFrame{
 
@@ -73,12 +74,24 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void createAccount(int selection) {
-		if(selection==1)
-		bankApp.createPersonalCheckingAccount();
-		else
-			bankApp.createOrganizationCheckingAccount();
+	protected void createAccount(String accountType, String customerType) {
 
+		if (customerType.equalsIgnoreCase(PERSONAL_ACCOUNT_TYPE)){//Personal Account
+			if (accountType.equals(CHECKING_ACCOUNT_TYPE)){
+				bankApp.createPersonalCheckingAccount();
+			}else if (accountType.equals(SAVING_ACCOUNT_TYPE)){
+				bankApp.createPersonalSavingAccount();
+			}
+		}else if (customerType.equalsIgnoreCase(ORGANIZATION_ACCOUNT_TYPE)){//Organizational Account{
+
+			if (accountType.equals(CHECKING_ACCOUNT_TYPE)){
+
+				bankApp.createOrganizationCheckingAccount();
+			}else if (accountType.equals(SAVING_ACCOUNT_TYPE)){
+
+				bankApp.createOrganizationSavingAccount();
+			}
+		}
 	}
 
 
@@ -91,12 +104,12 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void addInterest() {
-//		bankApp.addInterest();
+	protected void processInterest() {
+		bankApp.addInterest();
 	}
 
 	@Override
-	public JDialog_AddingAccount getAddingAccount() {
+	public AbstractDialogAddAccount getAddingAccount() {
 		return new DialogAddPA(this);
 	}
 
@@ -106,8 +119,8 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	protected void withdraw(String accnr, long w) {
-		 bankApp.withdraw(accnr, w);
+	protected void withdraw(String accnr, long amount) {
+		 bankApp.withdraw(accnr, amount);
 	}
 
 	@Override
@@ -118,8 +131,8 @@ public class BankFrame extends ApplicationFrame{
 		vector.add(account.getCustomer().getAddress().getCity());
 		vector.add(account.getCustomer().getAddress().getState());
 		vector.add(String.valueOf(account.getCustomer().getAddress().getZip()));
-		vector.add(pc);
-		vector.add(chs);
+		vector.add(account.getCustomer().getClass().getSimpleName());
+		vector.add(account.getDescription());
 		vector.add(String.valueOf(account.getBalance()));
 
 		return vector;

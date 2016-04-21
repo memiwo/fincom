@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.swing.JRadioButton;
 
-import viewFramework.ApplicationFrame;
-import viewFramework.JDialog_AddingAccount;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
+import edu.mum.fincom.framework.gui.AbstractDialogAddAccount;
 
-public class DialogAddCA extends JDialog_AddingAccount
+public class DialogAddCA extends AbstractDialogAddAccount
 {
 	public DialogAddCA(ApplicationFrame myframe) {
 		super(myframe);
@@ -45,10 +45,4 @@ public class DialogAddCA extends JDialog_AddingAccount
 		return list;
 	}
 
-	@Override
-	public void additionalOK_actionPerformed() {
-		parentframe.pc ="C";
-		parentframe.chs ="Ch";
-		parentframe.balance = "0";
-	}
 }

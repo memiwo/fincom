@@ -1,12 +1,14 @@
 package edu.mum.fincom.framework;
 
-import edu.mum.fincom.framework.factory.AccountFactory;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.party.ICustomer;
+import edu.mum.fincom.framework.service.AccountService;
+import edu.mum.fincom.framework.service.CustomerService;
 import edu.mum.fincom.framework.service.SimpleServiceFactory;
 import edu.mum.fincom.framework.transaction.ITransaction;
-import viewFramework.ApplicationFrame;
-import viewFramework.DefaultFrame;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
+import edu.mum.fincom.framework.gui.DefaultFrame;
+import edu.mum.fincom.framework.transaction.TransactionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +24,29 @@ public class FinCom implements ISubject {
 
     public ApplicationFrame appFrame;
 
-//    public static void main(String args[]){
-//        FinComApp app = new FinComApp();
-//        app.appFrame.startFrame();
-//    }
+    private AccountService accountService;
+    private CustomerService customerService;
+    private TransactionService transactionService;
 
-    public ApplicationFrame getFrame()
-    {
-        return new DefaultFrame();
-    }
     public FinCom(FinComFactory finComFactory){
+
         this.finComFactory = finComFactory;
         observers = new ArrayList<>();
         this.appFrame = getFrame();
+        this.accountService = SimpleServiceFactory.getAccountService();
+        this.transactionService = SimpleServiceFactory.getTransactionService();
+        this.customerService = SimpleServiceFactory.getCustomerService();
+    }
+
+
+    public static void main(String args[]){
+        FinCom app = new FinCom(null);
+        app.appFrame.startFrame();
+    }
+
+    public ApplicationFrame getFrame()
+    {
+        return new DefaultFrame(this);
     }
 
     @Override
@@ -50,7 +62,7 @@ public class FinCom implements ISubject {
     public final void createAccount(){
         IAccount account = finComFactory.createAccountFactory().createAccount();
 
-        SimpleServiceFactory.getAccountService().createAccount(account);
+        this.accountService.createAccount(account);
 
         notifyObservers();
 
@@ -58,17 +70,23 @@ public class FinCom implements ISubject {
 
     public final void createCustomer(){
         ICustomer customer = finComFactory.createCustomerFactory().createCustomer();
-        SimpleServiceFactory.getCustomerService().createCustomer(customer);
+       this.customerService.createCustomer(customer);
     }
 
     public final void createTransaction(){
         ITransaction transaction = finComFactory.createTransactionFactory().createTransaction();
-        SimpleServiceFactory.getTransactionService().process(transaction);
+        this.transactionService.process(transaction);
         notifyObservers();
 
     }
 
     public List<IAccount> getAccounts(){
         return SimpleServiceFactory.getAccountService().getAccounts();
+    }
+
+    public void addInterest(){
+        this.accountService.addInterest();
+        notifyObservers();
+
     }
 }

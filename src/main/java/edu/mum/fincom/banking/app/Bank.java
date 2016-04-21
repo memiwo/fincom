@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import viewFramework.ApplicationFrame;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
 
 import java.util.Date;
 
@@ -32,10 +32,9 @@ public class Bank extends FinCom
     static public void main(String args[])
     {
         ApplicationContext context = new AnnotationConfigApplicationContext(BankAppConfig.class);
-        Bank app = (Bank) context.getBean("bankApp");
+        Bank app = (Bank) context.getBean("bank");
         app.appFrame.startFrame();
     }
-
 
     @Override
     public ApplicationFrame getFrame() {
@@ -93,7 +92,6 @@ public class Bank extends FinCom
         AccountService ser = SimpleServiceFactory.getAccountService();
         account = ser.getAccountByName(accnm);
 
-        System.out.println(account.getBalance());
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
 
@@ -108,7 +106,6 @@ public class Bank extends FinCom
         AccountService ser = SimpleServiceFactory.getAccountService();
         account = ser.getAccountByName(accnm);
 
-        System.out.println(account.getBalance());
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.WITHDRAWAL,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
 
@@ -125,6 +122,10 @@ public class Bank extends FinCom
        // IAccount account = checkingAccountFactory.createAccount();
         // System.out.println(account.getInterestRate());
         createAccount();
+    }
+
+    public void processInterest(){
+        addInterest();
     }
 
 
