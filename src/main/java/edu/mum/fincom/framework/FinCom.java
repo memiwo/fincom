@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author Issa Fikadu
  */
-public class FinComApp implements ISubject {
+public class FinCom implements ISubject {
 
     private List<IObserver> observers;
 
@@ -31,7 +31,7 @@ public class FinComApp implements ISubject {
     {
         return new DefaultFrame();
     }
-    public FinComApp(FinComFactory finComFactory){
+    public FinCom(FinComFactory finComFactory){
         this.finComFactory = finComFactory;
         observers = new ArrayList<>();
         this.appFrame = getFrame();

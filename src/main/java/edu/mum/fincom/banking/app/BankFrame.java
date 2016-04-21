@@ -15,9 +15,9 @@ public class BankFrame extends ApplicationFrame{
 
 	private static final long serialVersionUID = 1L;
 
-	public BankApp bankApp;
+	public Bank bankApp;
 
-	public BankFrame(BankApp bankApp){
+	public BankFrame(Bank bankApp){
 
 		this.bankApp = bankApp;
 		this.bankApp.attach(this);

@@ -1,7 +1,7 @@
 package viewFramework;
 
 import edu.mum.fincom.banking.app.DialogAddCA;
-import edu.mum.fincom.framework.FinComApp;
+import edu.mum.fincom.framework.FinCom;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.IObserver;
 
@@ -18,7 +18,7 @@ import java.util.Vector;
 public abstract class ApplicationFrame extends javax.swing.JFrame implements IObserver
 {
 
-	public FinComApp application;
+	public FinCom application;
 
 	private static final long serialVersionUID = 1L;
 	/****
@@ -58,7 +58,7 @@ public abstract class ApplicationFrame extends javax.swing.JFrame implements IOb
 	JButton JButton_Exit = new JButton();
 ///
 
-	public void setApplication(FinComApp app)
+	public void setApplication(FinCom app)
 	{
 		this.application = app;
 	}

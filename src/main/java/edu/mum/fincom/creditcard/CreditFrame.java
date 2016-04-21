@@ -14,9 +14,9 @@ public class CreditFrame extends ApplicationFrame{
 
 	private static final long serialVersionUID = 1L;
 
-	public CreditCardApp creditCardApp;
+	public CreditCard creditCardApp;
 
-	public CreditFrame(CreditCardApp ca){
+	public CreditFrame(CreditCard ca){
 
 		this.creditCardApp = ca;
 		this.creditCardApp.attach(this);
