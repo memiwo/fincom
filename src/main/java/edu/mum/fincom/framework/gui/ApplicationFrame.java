@@ -15,7 +15,6 @@ import java.util.Vector;
  */
 public abstract class ApplicationFrame extends javax.swing.JFrame implements IObserver
 {
-
 	public static final String PERSONAL_ACCOUNT_TYPE = "P";
 	public static final String ORGANIZATION_ACCOUNT_TYPE = "O";
 
@@ -154,14 +153,14 @@ private void addJButtonsToJPanel1() {
 	JPanel1.add(JButton1);
 	JPanel1.add(JButton2);
 
-	ThirdButton(JPanel1, JButton3);
+	interestButton(JPanel1, JButton3);
 
 	JPanel1.add(JButton_Deposit);
 	JPanel1.add(JButton_Withdraw);
 	JPanel1.add(JButton_Exit);
 }
 
-public void ThirdButton(JPanel panel ,JButton interestButton) {
+public void interestButton(JPanel panel ,JButton interestButton) {
 	panel.add(interestButton);
 }
 
@@ -177,24 +176,10 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	}
 
 
-	public String getFrameTitle() {
-		return "Def frame";
-	}
+	public abstract String getFrameTitle();
 
-	public List<String> getTableColumnNames() {
+	abstract public List<String> getTableColumnNames();
 
-		List<String> tableColumnNames = new ArrayList<String>();
-		for(int i=0; i<7;i++)
-		tableColumnNames.add("col "+i);
-		return tableColumnNames;
-	}
-
-
-	/*****************************************************
-	 * The entry point for this application.
-	 * Sets the Look and Feel to the System Look and Feel.
-	 * Creates a new JFrame1 and makes it visible.
-	 *****************************************************/
 	public void startFrame()
 	{
 		try {
@@ -272,7 +257,7 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 
 	protected void JButton1_actionPerformed(java.awt.event.ActionEvent event)//create Personal Account AP
 	{
-		AbstractDialogAddAccount pac = getAddingAccount();
+		AbstractDialogAddAccount pac = getAddingAccountDialog();
 		pac.setBounds(450, 220, 300, 350);
 		pac.show();
 
@@ -289,7 +274,7 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	protected  void JButton2_actionPerformed(java.awt.event.ActionEvent event)// create company account AP
 	{
 
-		AbstractDialogAddAccount pac = getAddingAccount();
+		AbstractDialogAddAccount pac = getAddingAccountDialog();
 		pac.setBounds(450, 220, 300, 350);
 		pac.show();
 
@@ -303,7 +288,7 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 
 	abstract public Vector<String> getVectorToAdd(IAccount acc);
 
-	public abstract AbstractDialogAddAccount getAddingAccount();
+	public abstract AbstractDialogAddAccount getAddingAccountDialog();
 
 	public void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event)
 	{
@@ -333,8 +318,6 @@ public void ThirdButton(JPanel panel ,JButton interestButton) {
 	protected abstract void deposit(String accnr, long deposit);
 	protected abstract void withdraw(String accnr, long amount);
 
-
-	abstract public int getAmountSelectionColumnNum();
 
 	public String getDDTitle()
 	{

@@ -23,6 +23,7 @@ public class BankFrame extends ApplicationFrame{
 		this.bankApp = bankApp;
 		this.bankApp.attach(this);
 	}
+
 	@Override
 	public String getButton1Text() {
 		return "Add personal account";
@@ -54,7 +55,7 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public void ThirdButton(JPanel panel ,JButton interestButton) {
+	public void interestButton(JPanel panel ,JButton interestButton) {
 		panel.add(interestButton);
 	}
 
@@ -109,7 +110,7 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public AbstractDialogAddAccount getAddingAccount() {
+	public AbstractDialogAddAccount getAddingAccountDialog() {
 		return new DialogAddPA(this);
 	}
 
@@ -138,10 +139,6 @@ public class BankFrame extends ApplicationFrame{
 		return vector;
 	}
 
-	@Override
-	public int getAmountSelectionColumnNum() {
-		return 7;
-	}
 
 	@Override
 	public void update() {

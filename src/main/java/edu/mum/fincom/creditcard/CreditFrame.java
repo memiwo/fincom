@@ -3,7 +3,7 @@ package edu.mum.fincom.creditcard;
 import edu.mum.fincom.creditcard.app.CreditCard;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.gui.ApplicationFrame;
-import edu.mum.fincom.framework.gui.JDialogGenBill;
+import edu.mum.fincom.creditcard.app.DialogGenerateBill;
 import edu.mum.fincom.framework.gui.AbstractDialogAddAccount;
 import static edu.mum.fincom.creditcard.Constants.*;
 
@@ -94,7 +94,7 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public void ThirdButton(JPanel panel ,JButton interestButton) {
+	public void interestButton(JPanel panel ,JButton interestButton) {
 	}
 
 	public String getDDTitle()
@@ -113,7 +113,7 @@ public class CreditFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public AbstractDialogAddAccount getAddingAccount() {
+	public AbstractDialogAddAccount getAddingAccountDialog() {
 		return new DialogAddCCA(this);
 	}
 
@@ -141,13 +141,9 @@ public class CreditFrame extends ApplicationFrame{
 	@Override
 	protected void JButton2_actionPerformed(java.awt.event.ActionEvent event)
 	{
-			new JDialogGenBill().show();
+			new DialogGenerateBill().show();
 	}
 
-	@Override
-	public int getAmountSelectionColumnNum() {
-		return 4;
-	}
 
 	@Override
 	public void update() {
