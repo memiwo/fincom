@@ -13,8 +13,6 @@ import edu.mum.fincom.framework.party.Address;
 import edu.mum.fincom.framework.party.ICustomer;
 import edu.mum.fincom.framework.party.Organization;
 import edu.mum.fincom.framework.party.Person;
-import edu.mum.fincom.framework.service.AccountService;
-import edu.mum.fincom.framework.service.SimpleServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -87,10 +85,8 @@ public class Bank extends FinCom
     }
 
     public void deposit(String accnm, long val){
-        IAccount account = null;
+        IAccount account = getAccountByName(accnm);
         double amount = Double.valueOf(val);
-        AccountService ser = SimpleServiceFactory.getAccountService();
-        account = ser.getAccountByName(accnm);
 
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
@@ -101,18 +97,14 @@ public class Bank extends FinCom
 
 
     public void withdraw(String accnm, long val){
-        IAccount account = null;
+        IAccount account = getAccountByName(accnm);
         double amount = Double.valueOf(val);
-        AccountService ser = SimpleServiceFactory.getAccountService();
-        account = ser.getAccountByName(accnm);
 
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.WITHDRAWAL,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
 
         createTransaction();
 
-
-       // return account.getBalance();
     }
 
     public void createSavingAccount(){
