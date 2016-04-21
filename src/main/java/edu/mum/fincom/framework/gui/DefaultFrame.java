@@ -26,7 +26,7 @@ public class DefaultFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public AbstractDialogAddAccount getAddingAccount() {
+	public AbstractDialogAddAccount getAddingAccountDialog() {
 		return new DefaultDialogAddPA(this);
 	}
 
@@ -40,10 +40,6 @@ public class DefaultFrame extends ApplicationFrame{
 
 	}
 
-	@Override
-	public int getAmountSelectionColumnNum() {
-		return 0;
-	}
 
 	@Override
 	protected void processInterest() {

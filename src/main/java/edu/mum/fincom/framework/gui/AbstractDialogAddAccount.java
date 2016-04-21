@@ -14,7 +14,6 @@ public abstract class AbstractDialogAddAccount extends javax.swing.JDialog
 
 	private static final long serialVersionUID = 1L;
 	public ApplicationFrame parentframe;
-	List<Component> addedComponents = new ArrayList<>();
 
 	public abstract String getDialogTitle();
 
@@ -100,7 +99,8 @@ public abstract class AbstractDialogAddAccount extends javax.swing.JDialog
 		int xx=0;
 		List<JTextField> fields = new ArrayList<JTextField>();
 
-	private void addAdditionallables() {
+	private void addAdditionallables()
+	{
 		int c =0;
 
 		for(String s : getadditionalLable())

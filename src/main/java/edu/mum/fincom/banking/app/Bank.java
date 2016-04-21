@@ -107,14 +107,6 @@ public class Bank extends FinCom
 
     }
 
-    public void createSavingAccount(){
-     //   bankFactory.setAccountFactory(savingAccountFactory);
-
-        // System.out.println("creating checking account");
-       // IAccount account = checkingAccountFactory.createAccount();
-        // System.out.println(account.getInterestRate());
-        createAccount();
-    }
 
     public void processInterest(){
         addInterest();
