@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * @author Issa Fikadu
  */
-class CustomerServiceFacade implements CustomerService {
+class CustomerServiceManager implements CustomerService {
     List<ICustomer> customers;
-    public CustomerServiceFacade(){
+    public CustomerServiceManager(){
         customers = new ArrayList<>();
     }
     @Override

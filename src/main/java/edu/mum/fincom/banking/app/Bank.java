@@ -6,20 +6,18 @@ import edu.mum.fincom.banking.factory.BankAccountFactory;
 import edu.mum.fincom.banking.factory.BankFactory;
 import edu.mum.fincom.banking.factory.BankTransactionFactory;
 import edu.mum.fincom.banking.factory.TransactionType;
-import edu.mum.fincom.framework.FinComApp;
+import edu.mum.fincom.framework.FinCom;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.party.Address;
 import edu.mum.fincom.framework.party.ICustomer;
 import edu.mum.fincom.framework.party.Organization;
 import edu.mum.fincom.framework.party.Person;
-import edu.mum.fincom.framework.service.AccountService;
-import edu.mum.fincom.framework.service.SimpleServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import viewFramework.ApplicationFrame;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
 
 import java.util.Date;
 
@@ -27,15 +25,14 @@ import java.util.Date;
  * @author Issa Fikadu
  */
 @Component
-public class BankApp extends FinComApp
+public class Bank extends FinCom
 {
     static public void main(String args[])
     {
         ApplicationContext context = new AnnotationConfigApplicationContext(BankAppConfig.class);
-        BankApp app = (BankApp) context.getBean("bankApp");
+        Bank app = (Bank) context.getBean("bank");
         app.appFrame.startFrame();
     }
-
 
     @Override
     public ApplicationFrame getFrame() {
@@ -47,7 +44,7 @@ public class BankApp extends FinComApp
 
 
     @Autowired
-    public BankApp(FinComFactory bankFactory) {
+    public Bank(FinComFactory bankFactory) {
         super(bankFactory);
     }
 
@@ -88,12 +85,9 @@ public class BankApp extends FinComApp
     }
 
     public void deposit(String accnm, long val){
-        IAccount account = null;
+        IAccount account = getAccountByName(accnm);
         double amount = Double.valueOf(val);
-        AccountService ser = SimpleServiceFactory.getAccountService();
-        account = ser.getAccountByName(accnm);
 
-        System.out.println(account.getBalance());
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.DEPOSIT,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
 
@@ -103,19 +97,14 @@ public class BankApp extends FinComApp
 
 
     public void withdraw(String accnm, long val){
-        IAccount account = null;
+        IAccount account = getAccountByName(accnm);
         double amount = Double.valueOf(val);
-        AccountService ser = SimpleServiceFactory.getAccountService();
-        account = ser.getAccountByName(accnm);
 
-        System.out.println(account.getBalance());
         BankTransactionFactory transactionFactory = new BankTransactionFactory(TransactionType.WITHDRAWAL,account, amount);
         bankFactory.setTransactionFactory(transactionFactory);
 
         createTransaction();
 
-
-       // return account.getBalance();
     }
 
     public void createSavingAccount(){
@@ -125,6 +114,10 @@ public class BankApp extends FinComApp
        // IAccount account = checkingAccountFactory.createAccount();
         // System.out.println(account.getInterestRate());
         createAccount();
+    }
+
+    public void processInterest(){
+        addInterest();
     }
 
 

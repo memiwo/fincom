@@ -5,15 +5,29 @@ import java.util.List;
 
 import javax.swing.JRadioButton;
 
-import viewFramework.ApplicationFrame;
-import viewFramework.JDialog_AddingAccount;
+import edu.mum.fincom.framework.gui.ApplicationFrame;
+import edu.mum.fincom.framework.gui.DefaultDialogAddPA;
+import static edu.mum.fincom.banking.Constants.*;
 
-public class DialogAddPA extends JDialog_AddingAccount
+public class DialogAddPA extends DefaultDialogAddPA
 {
 	private static final long serialVersionUID = 1L;
 
+	static JRadioButton JRadioButton_Chk = new JRadioButton();
+	static JRadioButton JRadioButton_Sav = new JRadioButton();
+
 	public DialogAddPA(ApplicationFrame myframe) {
 		super(myframe);
+		JRadioButton_Chk.setText(CHECKING_ACCOUNT_TYPE);
+	//	JRadioButton_Chk.setActionCommand("Checkings");
+		JRadioButton_Chk.setBounds(36,12,84,24);
+		JRadioButton_Chk.setSelected(true);
+
+		JRadioButton_Sav.setText(SAVING_ACCOUNT_TYPE);
+
+		//JRadioButton_Sav.setActionCommand("Savings");
+		JRadioButton_Sav.setBounds(36,36,84,24);
+
 	}
 
 	public  String getDialogTitle()
@@ -24,37 +38,9 @@ public class DialogAddPA extends JDialog_AddingAccount
 	@Override
 	public List<JRadioButton> getRadioButtons() {
 		List<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
-
-		JRadioButton JRadioButton_Chk = new JRadioButton();
-		JRadioButton JRadioButton_Sav = new JRadioButton();
-
-		JRadioButton_Chk.setText("Checkings");
-		JRadioButton_Chk.setActionCommand("Checkings");
-		getContentPane().add(JRadioButton_Chk);
-		JRadioButton_Chk.setBounds(36,12,84,24);
-		JRadioButton_Sav.setText("Savings");
-		JRadioButton_Sav.setActionCommand("Savings");
-		getContentPane().add(JRadioButton_Sav);
-		JRadioButton_Sav.setBounds(36,36,84,24);
-
-		radioButtons.add(JRadioButton_Sav);
 		radioButtons.add(JRadioButton_Chk);
+		radioButtons.add(JRadioButton_Sav);
 		return radioButtons;
-	}
-
-	@Override
-	public List<String> getadditionalLable() {
-		List<String> list = new ArrayList<>();
-		list.add("Birthdate");
-
-		return list;
-	}
-
-	@Override
-	public void additionalOK_actionPerformed() {
-		parentframe.pc ="P";
-		parentframe.chs ="S";
-		parentframe.balance = "0";
 	}
 
 }

@@ -1,6 +1,6 @@
-package viewFramework;
+package edu.mum.fincom.framework.gui;
 
-public class JDialog_ForEntries extends javax.swing.JDialog
+public class DialogAddEntry extends javax.swing.JDialog
 {
 
 
@@ -8,7 +8,7 @@ public class JDialog_ForEntries extends javax.swing.JDialog
     private String Title;
     String name;
 
-	public JDialog_ForEntries(ApplicationFrame parent, String title, String n)
+	public DialogAddEntry(ApplicationFrame parent, String title, String n)
 	{
 		super(parent);
 		parentframe=parent;
@@ -77,7 +77,7 @@ public class JDialog_ForEntries extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-        parentframe.amountDeposit=JTextField_Deposit.getText();
+        parentframe.amount =JTextField_Deposit.getText();
         dispose();
 	}
 

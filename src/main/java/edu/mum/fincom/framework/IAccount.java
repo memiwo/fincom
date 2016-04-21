@@ -13,4 +13,5 @@ public interface IAccount {
     List<IEntry> getEntries();
     double getInterestRate();
     ICustomer getCustomer();
+    String getDescription();
 }

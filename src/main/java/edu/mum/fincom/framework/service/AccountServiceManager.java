@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * @author Issa Fikadu
  */
-class AccountServiceFacade implements AccountService {
+class AccountServiceManager implements AccountService {
 
     List<IAccount> accounts;
 
-    public AccountServiceFacade(){
+    public AccountServiceManager(){
         accounts = new ArrayList<>();
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Issa Fikadu
  */
-public abstract class Account implements IAccount {
+public class Account implements IAccount {
     private ICustomer customer;
     private List<IEntry> entries;
     private double balance;
@@ -27,12 +27,14 @@ public abstract class Account implements IAccount {
 
     @Override
     public final double getBalance() {
-        /*for (IEntry e: entries){
-            balance+=e.getAmount();
-        }*/
+
         return balance;
     }
 
+    @Override
+    public double getInterestRate() {
+        return 0;
+    }
 
     @Override
     public List<IEntry> getEntries() {
@@ -42,5 +44,10 @@ public abstract class Account implements IAccount {
     @Override
     public ICustomer getCustomer() {
         return customer;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Def";
     }
 }
