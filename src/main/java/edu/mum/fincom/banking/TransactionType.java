@@ -1,4 +1,4 @@
-package edu.mum.fincom.banking.factory;
+package edu.mum.fincom.banking;
 
 /**
  * @author Issa Fikadu
