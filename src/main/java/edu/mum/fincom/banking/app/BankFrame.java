@@ -115,7 +115,7 @@ public class BankFrame extends ApplicationFrame{
 			return new DialogAddCA(this);
 			else if(ACC_TYPE.equalsIgnoreCase("P"))
 			return new DialogAddPA(this);
-		return new DialogAddPA(this);
+		return null;
 	}
 
 	@Override

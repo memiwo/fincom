@@ -72,7 +72,12 @@ public class DefaultFrame extends ApplicationFrame implements IObserver{
 
 	@Override
 	public AbstractDialogAddAccount getAddingAccountDialog(String ACC_TYPE) {
-		return new DefaultDialogAddPA(this);
+		if(ACC_TYPE.equalsIgnoreCase("O"))
+			return new DefaultDialogAddCA(this);
+		else if(ACC_TYPE.equalsIgnoreCase("P"))
+			return new DefaultDialogAddPA(this);
+
+		return null;
 	}
 
 	@Override
@@ -105,12 +110,12 @@ public class DefaultFrame extends ApplicationFrame implements IObserver{
 	@Override
 	protected void processInterest() {
 
+		finCom.addInterest();
 	}
 
 	@Override
 	public void update() {
 		refreshTable();
-		System.out.println("Notifying JTable: Refresh");
 		System.out.println(finCom.getAccounts().size());
 		for(IAccount i : finCom.getAccounts())
 			addRowToTable(getVectorToAdd(i));

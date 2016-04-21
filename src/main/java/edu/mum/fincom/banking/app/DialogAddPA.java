@@ -28,11 +28,6 @@ public class DialogAddPA extends DefaultDialogAddPA
 
 	}
 
-	public  String getDialogTitle()
-	{
-		return "Add Personal  Account ";
-	}
-
 	@Override
 	public List<JRadioButton> getRadioButtons() {
 		List<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
