@@ -26,7 +26,7 @@ public class DefaultFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public AbstractDialogAddAccount getAddingAccountDialog() {
+	public AbstractDialogAddAccount getAddingAccountDialog(String ACC_TYPE) {
 		return new DefaultDialogAddPA(this);
 	}
 

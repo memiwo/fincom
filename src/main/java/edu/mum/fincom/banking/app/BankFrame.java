@@ -110,7 +110,11 @@ public class BankFrame extends ApplicationFrame{
 	}
 
 	@Override
-	public AbstractDialogAddAccount getAddingAccountDialog() {
+	public AbstractDialogAddAccount getAddingAccountDialog(String ACC_TYPE) {
+		if(ACC_TYPE.equalsIgnoreCase("O"))
+			return new DialogAddCA(this);
+			else if(ACC_TYPE.equalsIgnoreCase("P"))
+			return new DialogAddPA(this);
 		return new DialogAddPA(this);
 	}
 
