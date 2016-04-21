@@ -258,7 +258,7 @@ public void interestButton(JPanel panel ,JButton interestButton) {
 
 	protected void JButton1_actionPerformed(java.awt.event.ActionEvent event)//create Personal Account AP
 	{
-		AbstractDialogAddAccount pac = getAddingAccountDialog();
+		AbstractDialogAddAccount pac = getAddingAccountDialog(PERSONAL_ACCOUNT_TYPE);
 		pac.setBounds(450, 220, 300, 350);
 		pac.show();
 
@@ -275,7 +275,7 @@ public void interestButton(JPanel panel ,JButton interestButton) {
 	protected  void JButton2_actionPerformed(java.awt.event.ActionEvent event)// create company account AP
 	{
 
-		AbstractDialogAddAccount pac = getAddingAccountDialog();
+		AbstractDialogAddAccount pac = getAddingAccountDialog(ORGANIZATION_ACCOUNT_TYPE);
 		pac.setBounds(450, 220, 300, 350);
 		pac.show();
 
@@ -289,7 +289,7 @@ public void interestButton(JPanel panel ,JButton interestButton) {
 
 	abstract public Vector<String> getVectorToAdd(IAccount acc);
 
-	public abstract AbstractDialogAddAccount getAddingAccountDialog();
+	public abstract AbstractDialogAddAccount getAddingAccountDialog(String ACC_TYPE);
 
 	public void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event)
 	{
