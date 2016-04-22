@@ -94,4 +94,8 @@ public class FinCom implements ISubject {
     public IAccount getAccountByName(String name){
         return this.accountService.getAccountByName(name);
     }
+
+    public FinComFactory getFinComFactory(){
+        return finComFactory;
+    }
 }

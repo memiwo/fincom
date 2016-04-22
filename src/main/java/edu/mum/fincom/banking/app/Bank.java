@@ -5,7 +5,7 @@ import edu.mum.fincom.banking.account.AccountType;
 import edu.mum.fincom.banking.factory.BankAccountFactory;
 import edu.mum.fincom.banking.factory.BankFactory;
 import edu.mum.fincom.banking.factory.BankTransactionFactory;
-import edu.mum.fincom.banking.factory.TransactionType;
+import edu.mum.fincom.banking.TransactionType;
 import edu.mum.fincom.framework.FinCom;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.FinComFactory;
@@ -106,11 +106,4 @@ public class Bank extends FinCom
         createTransaction();
 
     }
-
-
-    public void processInterest(){
-        addInterest();
-    }
-
-
 }

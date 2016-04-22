@@ -1,8 +1,6 @@
 package edu.mum.fincom.creditcard.app;
 
-import edu.mum.fincom.banking.factory.BankAccountFactory;
-import edu.mum.fincom.banking.factory.BankTransactionFactory;
-import edu.mum.fincom.creditcard.factory.TransactionType;
+import edu.mum.fincom.banking.account.AccountType;
 import edu.mum.fincom.creditcard.CreditCardAppConfig;
 import edu.mum.fincom.creditcard.CreditFrame;
 import edu.mum.fincom.creditcard.Customer.CreditCustomer;
@@ -11,11 +9,11 @@ import edu.mum.fincom.creditcard.factory.CreditCardAccountFactory;
 import edu.mum.fincom.creditcard.factory.CreditCardFactory;
 import edu.mum.fincom.creditcard.factory.CreditCardTransactionFactory;
 import edu.mum.fincom.framework.FinCom;
-import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.gui.ApplicationFrame;
 import edu.mum.fincom.framework.party.Address;
 import edu.mum.fincom.framework.party.ICustomer;
+import edu.mum.fincom.framework.party.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

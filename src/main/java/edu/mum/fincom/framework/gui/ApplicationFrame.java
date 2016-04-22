@@ -1,5 +1,6 @@
 package edu.mum.fincom.framework.gui;
 
+import edu.mum.fincom.banking.app.DialogAddCA;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.IObserver;
 
