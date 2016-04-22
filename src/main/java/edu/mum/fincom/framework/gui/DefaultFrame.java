@@ -21,6 +21,11 @@ public class DefaultFrame extends ApplicationFrame{
 	}
 
 	@Override
+	public String getSelectionString() {
+		return chs;
+	}
+
+	@Override
 	public Vector<String> getVectorToAdd(IAccount a) {
 		return null;
 	}

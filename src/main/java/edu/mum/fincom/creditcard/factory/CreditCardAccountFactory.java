@@ -1,8 +1,11 @@
 package edu.mum.fincom.creditcard.factory;
 
-import edu.mum.fincom.banking.account.AccountType;
+import edu.mum.fincom.creditcard.account.AccountType;
 import edu.mum.fincom.banking.account.CheckingAccount;
 import edu.mum.fincom.banking.account.SavingAccount;
+import edu.mum.fincom.creditcard.account.BronzeAccount;
+import edu.mum.fincom.creditcard.account.GoldAccount;
+import edu.mum.fincom.creditcard.account.SilverAccount;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.AccountFactory;
 import edu.mum.fincom.framework.party.ICustomer;
@@ -17,11 +20,14 @@ public class CreditCardAccountFactory implements AccountFactory{
 
     public CreditCardAccountFactory(AccountType type, ICustomer customer){
         switch (type){
-            case CHECKING:
-                account = new CheckingAccount(customer);
+            case GOLD:
+                account = new GoldAccount(customer);
                 break;
-            case SAVING:
-                account = new SavingAccount(customer);
+            case BRONZE:
+                account = new BronzeAccount(customer);
+                break;
+            case SILVER:
+                account = new SilverAccount(customer);
                 break;
         }
 

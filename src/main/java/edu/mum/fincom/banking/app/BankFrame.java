@@ -95,6 +95,10 @@ public class BankFrame extends ApplicationFrame{
 		}
 	}
 
+	@Override
+	public String getSelectionString() {
+		return chs;
+	}
 
 	public String getDDTitle(){
 		return "Deposit";

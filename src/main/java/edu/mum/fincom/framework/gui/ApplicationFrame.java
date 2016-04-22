@@ -262,7 +262,7 @@ public void interestButton(JPanel panel ,JButton interestButton) {
 		pac.show();
 
 		if (newaccount){
-			createAccount(chs, PERSONAL_ACCOUNT_TYPE); // chs => is the selected radio button
+			createAccount(getSelectionString(), PERSONAL_ACCOUNT_TYPE); // chs => is the selected radio button
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
@@ -279,12 +279,14 @@ public void interestButton(JPanel panel ,JButton interestButton) {
 		pac.show();
 
 		if (newaccount){
-			createAccount(chs, ORGANIZATION_ACCOUNT_TYPE);// chs => is the selected radio button
+			createAccount(getSelectionString(), ORGANIZATION_ACCOUNT_TYPE);// chs => is the selected radio button
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
 
 	}
+
+	public abstract String getSelectionString();
 
 	abstract public Vector<String> getVectorToAdd(IAccount acc);
 

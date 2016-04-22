@@ -1,5 +1,6 @@
 package edu.mum.fincom.creditcard;
 
+import edu.mum.fincom.creditcard.Customer.CreditCustomer;
 import edu.mum.fincom.creditcard.app.CreditCard;
 import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.gui.ApplicationFrame;
@@ -14,16 +15,16 @@ import java.util.Vector;
 
 public class CreditFrame extends ApplicationFrame{
 
-
-
 	private static final long serialVersionUID = 1L;
 
-	public CreditCard app;
+	public CreditCard creditCardapp;
+	public String CCNumber,Exp_Date= "ee";
+	public String acc_type;
 
 	public CreditFrame(CreditCard ca){
 
-		this.app = ca;
-		this.app.attach(this);
+		this.creditCardapp = ca;
+		this.creditCardapp.attach(this);
 	}
 
 	public List<String> getTableColumnNames()
@@ -43,22 +44,12 @@ public class CreditFrame extends ApplicationFrame{
 
 		if (customerType.equalsIgnoreCase(PERSONAL_ACCOUNT_TYPE)){//Personal Account
 			if (accountType.equals(GOLD_ACCOUNT_TYPE)){
-				app.createPersonalGoldAccount();
+				creditCardapp.createPersonalGoldAccount();
 			}else if (accountType.equals(BRONZE_ACCOUNT_TYPE)){
-				app.createPersonalBronzeAccount();
+				creditCardapp.createPersonalBronzeAccount();
 			}else if (accountType.equals(SILVER_ACCOUNT_TYPE)){
-				app.createPersonalSilverAccount();
+				creditCardapp.createPersonalSilverAccount();
 			}
-		}else if (customerType.equalsIgnoreCase(ORGANIZATION_ACCOUNT_TYPE)){//Organizational Account{
-
-			if (accountType.equals(GOLD_ACCOUNT_TYPE)){
-				app.createOrganizationGoldAccount();
-			}else if (accountType.equals(BRONZE_ACCOUNT_TYPE)){
-				app.createOrganizationBronzeAccount();
-			}else if (accountType.equals(SILVER_ACCOUNT_TYPE)){
-				app.createOrganizationSilverAccount();
-			}
-
 		}
 
 	}
@@ -119,21 +110,23 @@ public class CreditFrame extends ApplicationFrame{
 
 	@Override
 	protected void deposit(String accnr, long deposit) {
-
+		creditCardapp.deposit(accnr, deposit);
 	}
 
 	@Override
 	protected void withdraw(String accnr, long deposit) {
+		creditCardapp.chargeMoney(accnr, deposit);
 			}
 
 	@Override
-	public Vector<String> getVectorToAdd(IAccount a) {
+	public Vector<String> getVectorToAdd(IAccount account) {
+		CreditCustomer customer= (CreditCustomer) account.getCustomer();
 		Vector<String> vector = new Vector<>();
-		vector.add(clientName);
-		vector.add(ccnumber);
-		vector.add(expDate);
-		vector.add(accountType);
-		vector.add(balance);
+		vector.add(customer.getName());
+		vector.add(customer.getCC_number());
+		vector.add(customer.getExpiryDate());
+		vector.add(account.getDescription());
+		vector.add(String.valueOf(account.getBalance()));
 
 		return vector;
 	}
@@ -144,9 +137,18 @@ public class CreditFrame extends ApplicationFrame{
 			new DialogGenerateBill().show();
 	}
 
+	@Override
+	public String getSelectionString() {
+		return this.acc_type;
+	}
+
 
 	@Override
 	public void update() {
-
+		refreshTable();
+		System.out.println("Notifying JTable: Refresh");
+		System.out.println(creditCardapp.getAccounts().size());
+		for(IAccount i : creditCardapp.getAccounts())
+			addRowToTable(getVectorToAdd(i));
 	}
 }

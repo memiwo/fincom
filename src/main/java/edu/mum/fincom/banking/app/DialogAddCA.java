@@ -26,10 +26,8 @@ public class DialogAddCA extends AbstractDialogAddAccount
 		JRadioButton JRadioButton_Sav = new JRadioButton();
 
 		JRadioButton_Chk.setText("Checkings");
-		JRadioButton_Chk.setActionCommand("Checkings");
 		JRadioButton_Chk.setBounds(36,12,84,24);
 		JRadioButton_Sav.setText("Savings");
-		JRadioButton_Sav.setActionCommand("Savings");
 		JRadioButton_Sav.setBounds(36,36,84,24);
 
 		radioButtons.add(JRadioButton_Sav);

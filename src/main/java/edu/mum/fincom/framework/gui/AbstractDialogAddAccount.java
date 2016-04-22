@@ -153,14 +153,13 @@ public abstract class AbstractDialogAddAccount extends javax.swing.JDialog
 	JLabel JLabel5 = new JLabel();
 	JLabel JLabel6 = new JLabel();
 	JLabel JLabel7 = new JLabel();
-	JTextField JTextField_NAME = new JTextField();
-	JTextField JTextField_CT = new JTextField();
-	JTextField JTextField_ST = new JTextField();
-	JTextField JTextField_STR = new JTextField();
-	JTextField JTextField_ZIP = new JTextField();
-	protected JTextField JTextField_additional1 = new JTextField();
+	public JTextField JTextField_NAME = new JTextField();
+	public JTextField JTextField_CT = new JTextField();
+	public JTextField JTextField_ST = new JTextField();
+	public JTextField JTextField_STR = new JTextField();
+	public JTextField JTextField_ZIP = new JTextField();
+	public JTextField JTextField_additional1 = new JTextField();
 	public JTextField JTextField_EM = new JTextField();
-	JRadioButton radioButtonTest = new JRadioButton();
 	javax.swing.JButton JButton_OK = new javax.swing.JButton();
 	javax.swing.JButton JButton_Calcel = new javax.swing.JButton();
 
@@ -176,7 +175,7 @@ public abstract class AbstractDialogAddAccount extends javax.swing.JDialog
 		}
 	}
 
-	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
+	public void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
        parentframe.clientName = JTextField_NAME.getText();
        parentframe.street = JTextField_STR.getText();
