@@ -21,15 +21,6 @@ public class DialogAddCA extends DefaultDialogAddCA
 	public DialogAddCA(ApplicationFrame myframe) {
 		super(myframe);
 		JRadioButton_Chk.setText(CHECKING_ACCOUNT_TYPE);
-	}
-
-	public  String getDialogTitle(){
-		return "Add Company  Account ";
-	}
-
-	@Override
-	public List<JRadioButton> getRadioButtons() {
-		List<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
 
 		JRadioButton JRadioButton_Chk = new JRadioButton();
 		JRadioButton JRadioButton_Sav = new JRadioButton();
@@ -43,6 +34,11 @@ public class DialogAddCA extends DefaultDialogAddCA
 		JRadioButton_Sav.setText("Savings");
 		JRadioButton_Sav.setBounds(36,36,84,24);
 	}
+
+	public  String getDialogTitle(){
+		return "Add Company  Account ";
+	}
+
 
 	@Override
 	public List<JRadioButton> getRadioButtons() {

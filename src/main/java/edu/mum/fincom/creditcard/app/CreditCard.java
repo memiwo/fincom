@@ -1,19 +1,18 @@
 package edu.mum.fincom.creditcard.app;
 
-import edu.mum.fincom.banking.account.AccountType;
+import edu.mum.fincom.creditcard.factory.TransactionType;
 import edu.mum.fincom.creditcard.CreditCardAppConfig;
 import edu.mum.fincom.creditcard.CreditFrame;
 import edu.mum.fincom.creditcard.Customer.CreditCustomer;
-import edu.mum.fincom.creditcard.account.AccountType;
 import edu.mum.fincom.creditcard.factory.CreditCardAccountFactory;
 import edu.mum.fincom.creditcard.factory.CreditCardFactory;
 import edu.mum.fincom.creditcard.factory.CreditCardTransactionFactory;
 import edu.mum.fincom.framework.FinCom;
+import edu.mum.fincom.framework.IAccount;
 import edu.mum.fincom.framework.factory.FinComFactory;
 import edu.mum.fincom.framework.gui.ApplicationFrame;
 import edu.mum.fincom.framework.party.Address;
 import edu.mum.fincom.framework.party.ICustomer;
-import edu.mum.fincom.framework.party.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -48,6 +47,7 @@ public class CreditCard extends FinCom
         super(creditCardFactory);
     }
 
+
     public void deposit(String accnm, long val){
         IAccount account = getAccountByName(accnm);
         double amount = Double.valueOf(val);
@@ -63,7 +63,7 @@ public class CreditCard extends FinCom
         IAccount account = getAccountByName(accnm);
         double amount = Double.valueOf(val);
 
-        BankTransactionFactory transactionFactory = new BankTransactionFactory(edu.mum.fincom.banking.factory.TransactionType.WITHDRAWAL,account, amount);
+        CreditCardTransactionFactory transactionFactory = new CreditCardTransactionFactory(TransactionType.WITHDRAWAL,account, amount);
         creditCardFactory.setTransactionFactory(transactionFactory);
 
         createTransaction();
@@ -71,12 +71,11 @@ public class CreditCard extends FinCom
     }
 
 
-
     public void createPersonalGoldAccount() {
         ICustomer customer = new CreditCustomer(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
                 Integer.parseInt(appFrame.zip),appFrame.email),appFrame.numOfEmps,this.creditFrame.CCNumber, this.creditFrame.Exp_Date);
 
-        CreditCardAccountFactory creditAccountFactory = new CreditCardAccountFactory(AccountType.GOLD,customer);
+        CreditCardAccountFactory creditAccountFactory = new CreditCardAccountFactory(edu.mum.fincom.creditcard.account.AccountType.GOLD,customer);
         creditCardFactory.setAccountFactory(creditAccountFactory);
         createAccount();
     }
@@ -85,19 +84,16 @@ public class CreditCard extends FinCom
         ICustomer customer = new CreditCustomer(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
                 Integer.parseInt(appFrame.zip),appFrame.email),appFrame.numOfEmps,this.creditFrame.CCNumber, this.creditFrame.Exp_Date);
 
-        CreditCardAccountFactory creditAccountFactory = new CreditCardAccountFactory(AccountType.BRONZE,customer);
+        CreditCardAccountFactory creditAccountFactory = new CreditCardAccountFactory(edu.mum.fincom.creditcard.account.AccountType.BRONZE,customer);
         creditCardFactory.setAccountFactory(creditAccountFactory);
         createAccount();
     }
 
-    public void createOrganizationSavingAccount(){
-
-    }
     public void createPersonalSilverAccount() {
         ICustomer customer = new CreditCustomer(appFrame.clientName,new Address(appFrame.street,appFrame.city, appFrame.state,
                 Integer.parseInt(appFrame.zip),appFrame.email),appFrame.numOfEmps,this.creditFrame.CCNumber, this.creditFrame.Exp_Date);
 
-        CreditCardAccountFactory creditAccountFactory = new CreditCardAccountFactory(AccountType.SILVER,customer);
+        CreditCardAccountFactory creditAccountFactory = new CreditCardAccountFactory(edu.mum.fincom.creditcard.account.AccountType.SILVER,customer);
         creditCardFactory.setAccountFactory(creditAccountFactory);
         createAccount();
     }
